@@ -37,6 +37,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # My Apps.
     "leads",
+    "agents",
 
     # Default Apps.
     "django.contrib.admin",
@@ -130,3 +131,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "leads.User"
 EMAIL_BACKEND = "django.core.email.backends.smtp.EmailBackend"
+LOGIN_REDIRECT_URL = "/leads"
+# LOGOUT_REDIRECT_URL = "/login"
+LOGIN_URL = "/login"
