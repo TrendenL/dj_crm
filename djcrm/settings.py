@@ -29,7 +29,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -130,7 +130,10 @@ STATIC_ROOT = "static_root"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "leads.User"
-EMAIL_BACKEND = "django.core.email.backends.smtp.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_USE_TLS = True
 LOGIN_REDIRECT_URL = "/leads"
 # LOGOUT_REDIRECT_URL = "/login"
 LOGIN_URL = "/login"
+LOGOUT_URL = "/logout"
