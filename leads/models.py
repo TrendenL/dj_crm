@@ -18,6 +18,7 @@ class Lead(models.Model):
     age = models.IntegerField(default=0)
     organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE) 
     agent = models.ForeignKey("Agent", null=True, blank=True, on_delete=models.CASCADE)
+    category = models.ForeignKey("Category", null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -28,6 +29,12 @@ class Agent(models.Model):
 
     def __str__(self):
         return self.user.email
+
+class Category(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
 
 def post_user_created_signal(sender, instance, created, **kwargs):
     if created:
