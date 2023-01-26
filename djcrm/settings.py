@@ -35,9 +35,13 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    # My Apps.
+    # Local Apps.
     "leads",
     "agents",
+
+    # Third Party Apps.
+    "crispy_forms",
+    "crispy_tailwind",
 
     # Default Apps.
     "django.contrib.admin",
@@ -137,3 +141,6 @@ LOGIN_REDIRECT_URL = "/leads"
 # LOGOUT_REDIRECT_URL = "/login"
 LOGIN_URL = "/login"
 LOGOUT_URL = "/logout"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"

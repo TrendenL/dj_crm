@@ -4,7 +4,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Lead, Agent, Category
 from agents.mixins import OrganizerAndLoginRequiredMixin
-from .form import LeadForm, CustomUserCreationForm, AssignAgentForm
+from .form import LeadForm, CustomUserCreationForm, AssignAgentForm, LeadCategoryUpdateForm
 
 
 class SignupView(generic.CreateView):
@@ -240,3 +240,23 @@ class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
                 organization=user.agent.organization
             )
         return queryset
+
+class LeadCategoryUpdateView(LoginRequiredMixin, generic.UpdateView):
+    template_name = "leads/lead_category_update.html"
+    form_class = LeadCategoryUpdateForm
+
+    def get_queryset(self):
+        user = self.request.user
+        # Inital queryset of leads for the entire organization
+        if user.is_organizer:
+            queryset = Lead.objects.filter(organization=user.userprofile)
+        else:
+            queryset = Lead.objects.filter(organization=user.agent.organization)
+            # Filter for the agent
+            queryset = queryset.filter(agent__user=user)
+        return queryset
+
+    def get_success_url(self):
+        return reverse("leads:lead-detail", kwargs={"pk": self.get_object().id})
+
+
